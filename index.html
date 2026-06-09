@@ -18,7 +18,6 @@
             overflow-x: hidden;
         }
 
-        /* 星星背景 */
         .stars-bg {
             position: fixed;
             top: 0;
@@ -41,13 +40,55 @@
             50% { opacity: 1; transform: scale(1.3); }
         }
 
-        /* 页面容器 */
+        .music-btn {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(255, 107, 157, 0.3);
+            border: 2px solid rgba(255, 107, 157, 0.5);
+            color: #ff6b9d;
+            font-size: 24px;
+            cursor: pointer;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .music-btn:hover {
+            background: rgba(255, 107, 157, 0.5);
+            transform: scale(1.1);
+        }
+
+        .music-btn.paused {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.3);
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .music-icon {
+            animation: musicPulse 1s ease-in-out infinite;
+        }
+
+        .paused .music-icon {
+            animation: none;
+        }
+
+        @keyframes musicPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
         .screen-container {
             position: relative;
             z-index: 1;
         }
 
-        /* 每屏内容 */
         .screen {
             min-height: 100vh;
             display: flex;
@@ -60,7 +101,6 @@
             position: relative;
         }
 
-        /* 标题样式 */
         .title {
             font-size: 48px;
             font-weight: bold;
@@ -70,7 +110,6 @@
             animation: fadeInUp 1s ease-out;
         }
 
-        /* 段落样式 */
         .content {
             font-size: 20px;
             line-height: 2.5;
@@ -102,7 +141,6 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* 向下提示 */
         .scroll-hint {
             position: absolute;
             bottom: 30px;
@@ -125,7 +163,6 @@
             50% { transform: translateX(-50%) translateY(10px); }
         }
 
-        /* 按钮区域 */
         .button-area {
             animation: fadeInUp 1s ease-out 0.5s both;
         }
@@ -167,7 +204,6 @@
             transform: scale(1.05);
         }
 
-        /* 结果页面 */
         .result-screen {
             min-height: 100vh;
             display: flex;
@@ -201,7 +237,6 @@
             color: rgba(255, 255, 255, 0.9);
         }
 
-        /* 心形装饰 */
         .heart-decoration {
             position: absolute;
             width: 30px;
@@ -231,7 +266,6 @@
             75% { transform: rotate(-45deg) translateY(-25px) translateX(8px); }
         }
 
-        /* 惊喜动画页面 */
         .surprise-screen {
             display: none;
             position: fixed;
@@ -244,90 +278,156 @@
             overflow: hidden;
         }
 
-        /* 响应式调整 */
         @media (max-width: 480px) {
             .title { font-size: 36px; }
             .content { font-size: 18px; }
             .result-content h2 { font-size: 32px; }
             .result-content p { font-size: 20px; }
+            .music-btn {
+                top: 20px;
+                right: 20px;
+                width: 45px;
+                height: 45px;
+                font-size: 20px;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- 星星背景 -->
+    <audio id="bgMusic" loop preload="auto">
+        <source src="bgmusic.mp3" type="audio/mpeg">
+     --></audio>
+
+    <button id="musicBtn" class="music-btn">
+        <span class="music-icon">♪</span>
+    </button>
+
     <div class="stars-bg" id="starsBg"></div>
     
-    <!-- 心形装饰 -->
     <div class="heart-decoration" style="top: 10%; left: 10%; animation-delay: 0s;"></div>
     <div class="heart-decoration" style="top: 20%; right: 15%; animation-delay: 2s;"></div>
     <div class="heart-decoration" style="top: 60%; left: 20%; animation-delay: 4s;"></div>
     <div class="heart-decoration" style="bottom: 25%; right: 10%; animation-delay: 6s;"></div>
 
-    <!-- 页面容器 -->
     <div class="screen-container" id="screenContainer">
-        <!-- 第一屏 -->
         <div class="screen" id="screen1">
-            <h1 class="title">刘雅楠</h1>
             <div class="content">
-                <p>这封信是写给你的。</p>
-                <p style="color: rgba(255, 107, 157, 0.8);">往下翻。</p>
+                <p>刘雅楠，这封信是写给你的。</p>
             </div>
-            <div class="scroll-hint">滑动查看下一页</div>
+            <div class="scroll-hint">继续往下</div>
         </div>
 
-        <!-- 第二屏 -->
         <div class="screen" id="screen2">
             <div class="content">
-                <p>我这个人，你知道的。</p>
-                <p>不太会说话。</p>
-                <p>有时候想太多。</p>
-                <p>还老说错话。</p>
+                <p>写之前，我删了改，改了删。</p>
+                <p>最后决定，怎么想的就怎么说。</p>
             </div>
             <div class="scroll-hint">继续往下</div>
         </div>
 
-        <!-- 第三屏 -->
         <div class="screen" id="screen3">
             <div class="content">
-                <p>但跟你在一起的时候，</p>
-                <p style="color: #ff6b9d; font-size: 24px;">我很放松。</p>
-                <p>不用想太多。</p>
-                <p>也不用装。</p>
+                <p>我这人嘴笨，</p>
+                <p>但对你，我不想再憋着了。</p>
             </div>
             <div class="scroll-hint">继续往下</div>
         </div>
 
-        <!-- 第四屏 -->
         <div class="screen" id="screen4">
             <div class="content">
-                <p>你说的话，我都记得。</p>
-                <p>你笑的时候，我也挺开心。</p>
-                <p>你不说话的时候，我也觉得挺好。</p>
+                <p>我还没完全想明白，</p>
+                <p>但不说，我怕后悔。</p>
             </div>
             <div class="scroll-hint">继续往下</div>
         </div>
 
-        <!-- 第五屏 -->
         <div class="screen" id="screen5">
             <div class="content">
-                <p>我认真想过了。</p>
-                <p>我对你的感觉，</p>
-                <p style="color: #ff6b9d; font-size: 24px; font-weight: bold;">不止是朋友。</p>
+                <p>我其实观察你很久了。</p>
             </div>
             <div class="scroll-hint">继续往下</div>
         </div>
 
-        <!-- 第六屏 -->
         <div class="screen" id="screen6">
             <div class="content">
-                <p>所以我想问问你：</p>
-                <p style="color: #ff6b9d; font-size: 28px; font-weight: bold; margin-top: 20px;">做我女朋友吧？</p>
+                <p>善良聪明，跟我一样。</p>
+                <p>你嘴上不说，心里都明白。</p>
+            </div>
+            <div class="scroll-hint">继续往下</div>
+        </div>
+
+        <div class="screen" id="screen7">
+            <div class="content">
+                <p>跟你在一起，我很自在，</p>
+                <p style="color: #ff6b9d; font-size: 24px;">不用装。</p>
+            </div>
+            <div class="scroll-hint">继续往下</div>
+        </div>
+
+        <div class="screen" id="screen8">
+            <div class="content">
+                <p>可以傻笑，也可以不说话。</p>
+                <p>这种自在，在别人那里，我没有。</p>
+            </div>
+            <div class="scroll-hint">继续往下</div>
+        </div>
+
+        <div class="screen" id="screen9">
+            <div class="content">
+                <p>我认真想过了，</p>
+                <p style="color: #ff6b9d; font-size: 24px; font-weight: bold;">我对你，不止是朋友。</p>
+            </div>
+            <div class="scroll-hint">继续往下</div>
+        </div>
+
+        <div class="screen" id="screen10">
+            <div class="content">
+                <p>我想名正言顺地对你好，</p>
+                <p>光明正大地站你旁边。</p>
+            </div>
+            <div class="scroll-hint">继续往下</div>
+        </div>
+
+        <div class="screen" id="screen11">
+            <div class="content">
+                <p>我知道自己不完美。</p>
+                <p>想太多，行动慢。</p>
+                <p>但我对你，是认真的。</p>
+            </div>
+            <div class="scroll-hint">继续往下</div>
+        </div>
+
+        <div class="screen" id="screen12">
+            <div class="content">
+                <p>是那种，</p>
+                <p style="color: #ff6b9d; font-size: 24px;">把你写进我未来计划里的认真。</p>
+            </div>
+            <div class="scroll-hint">继续往下</div>
+        </div>
+
+        <div class="screen" id="screen13">
+            <div class="content">
+                <p>不管你怎么选，</p>
+                <p style="color: #ff6b9d; font-size: 24px; font-weight: bold;">你都是我很重要的人。</p>
+            </div>
+            <div class="scroll-hint">继续往下</div>
+        </div>
+
+        <div class="screen" id="screen14">
+            <div class="content">
+                <p>所以，刘雅楠。</p>
             </div>
             <div class="scroll-hint">最后一页了</div>
         </div>
 
-        <!-- 第七屏 - 选择按钮 -->
-        <div class="screen" id="screen7">
+        <div class="screen" id="screen15">
+            <div class="content">
+                <p style="color: #ff6b9d; font-size: 28px; font-weight: bold;">做我女朋友吧？</p>
+            </div>
+            <div class="scroll-hint">做出你的选择</div>
+        </div>
+
+        <div class="screen" id="screen16">
             <div class="button-area">
                 <button class="btn btn-yes" id="btnYes">好</button>
                 <button class="btn btn-no" id="btnNo">我再想想</button>
@@ -335,7 +435,6 @@
         </div>
     </div>
 
-    <!-- 结果页面 -->
     <div class="result-screen" id="resultYes" style="display: none;">
         <div class="result-content">
             <h2>嘿嘿。</h2>
@@ -353,7 +452,6 @@
         <button class="btn btn-no" style="margin-top: 40px;" id="btnBack">返回</button>
     </div>
 
-    <!-- 惊喜动画页面 -->
     <div class="surprise-screen" id="surpriseScreen">
         <div class="stars"></div>
         <div class="shooting-stars"></div>
@@ -386,7 +484,6 @@
     </div>
 
     <style>
-        /* 惊喜动画样式 */
         .bg-glow {
             position: absolute;
             width: 600px;
@@ -680,7 +777,36 @@
     </style>
 
     <script>
-        // 创建星星背景
+        const bgMusic = document.getElementById('bgMusic');
+        const musicBtn = document.getElementById('musicBtn');
+        let isPlaying = false;
+
+        musicBtn.addEventListener('click', function() {
+            if (isPlaying) {
+                bgMusic.pause();
+                musicBtn.classList.add('paused');
+            } else {
+                bgMusic.play().then(() => {
+                    musicBtn.classList.remove('paused');
+                }).catch(err => {
+                    console.log('音乐播放失败:', err);
+                });
+            }
+            isPlaying = !isPlaying;
+        });
+
+        document.addEventListener('click', function firstClickHandler() {
+            if (!isPlaying) {
+                bgMusic.play().then(() => {
+                    isPlaying = true;
+                    musicBtn.classList.remove('paused');
+                }).catch(err => {
+                    console.log('音乐播放失败:', err);
+                });
+            }
+            document.removeEventListener('click', firstClickHandler);
+        });
+
         function createStarsBg() {
             const container = document.getElementById('starsBg');
             const sizes = ['small', 'medium', 'large'];
@@ -694,9 +820,8 @@
             }
         }
 
-        // 滑动翻页
         let currentScreen = 1;
-        const totalScreens = 7;
+        const totalScreens = 16;
         let touchStartY = 0;
         let touchEndY = 0;
 
@@ -734,7 +859,6 @@
             screenContainer.style.transform = `translateY(-${(screenNum - 1) * 100}vh)`;
         }
 
-        // 按钮点击事件
         document.getElementById('btnYes').addEventListener('click', function() {
             document.getElementById('screenContainer').style.display = 'none';
             document.getElementById('resultYes').style.display = 'flex';
@@ -748,10 +872,9 @@
         document.getElementById('btnBack').addEventListener('click', function() {
             document.getElementById('resultNo').style.display = 'none';
             document.getElementById('screenContainer').style.display = 'block';
-            goToScreen(7);
+            goToScreen(16);
         });
 
-        // 惊喜动画
         document.getElementById('btnSurprise').addEventListener('click', function() {
             document.getElementById('resultYes').style.display = 'none';
             const surpriseScreen = document.getElementById('surpriseScreen');
@@ -760,7 +883,6 @@
         });
 
         function startSurpriseAnimation() {
-            // 创建星星
             const starsContainer = document.querySelector('.surprise-screen .stars');
             const sizes = ['small', 'medium', 'large'];
             for (let i = 0; i < 80; i++) {
@@ -772,7 +894,6 @@
                 starsContainer.appendChild(star);
             }
 
-            // 创建流星
             const shootingContainer = document.querySelector('.surprise-screen .shooting-stars');
             for (let i = 0; i < 3; i++) {
                 const star = document.createElement('div');
@@ -783,7 +904,6 @@
                 shootingContainer.appendChild(star);
             }
 
-            // 创建爱心粒子
             const particleContainer = document.querySelector('.surprise-screen .heart-particles');
             for (let i = 0; i < 30; i++) {
                 const particle = document.createElement('div');
@@ -794,7 +914,6 @@
                 particleContainer.appendChild(particle);
             }
 
-            // 创建浮动爱心
             const floatContainer = document.querySelector('.surprise-screen .float-hearts');
             for (let i = 0; i < 12; i++) {
                 const heart = document.createElement('div');
@@ -809,7 +928,6 @@
                 createHeartElements(heart, size);
             }
 
-            // 创建装饰爱心
             const decorContainer = document.querySelector('.surprise-screen .decor-hearts');
             for (let i = 0; i < 5; i++) {
                 const heart = document.createElement('div');
@@ -820,7 +938,6 @@
                 decorContainer.appendChild(heart);
             }
 
-            // 创建主要爱心
             setTimeout(() => {
                 const container = document.querySelector('.surprise-screen .hearts-container');
                 const colors = ['#ff6b9d', '#ff1493', '#ff4757', '#ffc0cb', '#ff8fab'];
@@ -841,7 +958,6 @@
                 }
             }, 500);
 
-            // 爱心汇聚成玫瑰
             setTimeout(() => {
                 const hearts = document.querySelectorAll('.surprise-screen .heart:not(.float-heart):not(.decor-heart)');
                 const roseContainer = document.getElementById('roseContainer');
@@ -859,7 +975,6 @@
                 setTimeout(() => { roseContainer.classList.add('show'); }, 3500);
             }, 6000);
 
-            // 玫瑰破碎
             setTimeout(() => {
                 const petals = document.querySelectorAll('.surprise-screen .petal');
                 petals.forEach((petal, index) => {
@@ -875,7 +990,6 @@
                     document.querySelectorAll('.surprise-screen .leaf').forEach(leaf => { leaf.classList.add('falling'); });
                 }, 800);
 
-                // 创建爱心碎片
                 setTimeout(() => {
                     const container = document.querySelector('.surprise-screen .hearts-container');
                     for (let i = 0; i < 15; i++) {
@@ -895,7 +1009,6 @@
                 }, 500);
             }, 14000);
 
-            // 显示表白文字
             setTimeout(() => { document.getElementById('message').style.opacity = 1; }, 20000);
         }
 
@@ -921,18 +1034,15 @@
             heart.appendChild(after);
         }
 
-        // 初始化
         function init() {
             createStarsBg();
             
-            // 添加滑动事件
             document.addEventListener('touchstart', handleTouchStart, false);
             document.addEventListener('touchend', handleTouchEnd, false);
             document.addEventListener('wheel', handleMouseWheel, { passive: true });
 
-            // 设置容器样式
             document.getElementById('screenContainer').style.transition = 'transform 0.5s ease-out';
-            document.getElementById('screenContainer').style.height = '700vh';
+            document.getElementById('screenContainer').style.height = '1600vh';
             document.getElementById('screenContainer').style.position = 'relative';
         }
 
