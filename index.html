@@ -1,0 +1,942 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>给刘雅楠的信</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 50%, #16213e 100%);
+            min-height: 100vh;
+            font-family: 'Microsoft YaHei', 'PingFang SC', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* 星星背景 */
+        .stars-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .star-bg {
+            position: absolute;
+            background: #fff;
+            border-radius: 50%;
+            animation: twinkle 2s ease-in-out infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.2; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.3); }
+        }
+
+        /* 页面容器 */
+        .screen-container {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* 每屏内容 */
+        .screen {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
+            color: #fff;
+            text-align: center;
+            position: relative;
+        }
+
+        /* 标题样式 */
+        .title {
+            font-size: 48px;
+            font-weight: bold;
+            color: #ff6b9d;
+            text-shadow: 0 0 30px rgba(255, 107, 157, 0.8);
+            margin-bottom: 30px;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        /* 段落样式 */
+        .content {
+            font-size: 20px;
+            line-height: 2.5;
+            color: rgba(255, 255, 255, 0.9);
+            animation: fadeInUp 1s ease-out 0.3s both;
+            max-width: 400px;
+        }
+
+        .content p {
+            margin-bottom: 15px;
+            opacity: 0;
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+
+        .content p:nth-child(1) { animation-delay: 0.3s; }
+        .content p:nth-child(2) { animation-delay: 0.5s; }
+        .content p:nth-child(3) { animation-delay: 0.7s; }
+        .content p:nth-child(4) { animation-delay: 0.9s; }
+        .content p:nth-child(5) { animation-delay: 1.1s; }
+        .content p:nth-child(6) { animation-delay: 1.3s; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* 向下提示 */
+        .scroll-hint {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 14px;
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        .scroll-hint::after {
+            content: '▼';
+            display: block;
+            font-size: 20px;
+            margin-top: 5px;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(10px); }
+        }
+
+        /* 按钮区域 */
+        .button-area {
+            animation: fadeInUp 1s ease-out 0.5s both;
+        }
+
+        .btn {
+            display: block;
+            width: 200px;
+            height: 60px;
+            line-height: 60px;
+            border-radius: 30px;
+            font-size: 22px;
+            font-weight: bold;
+            text-decoration: none;
+            margin: 20px auto;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-yes {
+            background: linear-gradient(135deg, #ff6b9d, #ff1493);
+            color: #fff;
+            box-shadow: 0 0 30px rgba(255, 107, 157, 0.6);
+        }
+
+        .btn-yes:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 50px rgba(255, 107, 157, 0.8);
+        }
+
+        .btn-no {
+            background: rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.8);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .btn-no:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: scale(1.05);
+        }
+
+        /* 结果页面 */
+        .result-screen {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
+            color: #fff;
+            text-align: center;
+        }
+
+        .result-content {
+            animation: fadeInScale 0.8s ease-out;
+        }
+
+        @keyframes fadeInScale {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .result-content h2 {
+            font-size: 42px;
+            color: #ff6b9d;
+            text-shadow: 0 0 30px rgba(255, 107, 157, 0.8);
+            margin-bottom: 30px;
+        }
+
+        .result-content p {
+            font-size: 24px;
+            line-height: 2;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        /* 心形装饰 */
+        .heart-decoration {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background: rgba(255, 107, 157, 0.3);
+            transform: rotate(-45deg);
+            animation: floatHeart 8s ease-in-out infinite;
+        }
+
+        .heart-decoration::before,
+        .heart-decoration::after {
+            content: '';
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background: inherit;
+            border-radius: 50%;
+        }
+
+        .heart-decoration::before { top: -15px; left: 0; }
+        .heart-decoration::after { top: 0; left: 15px; }
+
+        @keyframes floatHeart {
+            0%, 100% { transform: rotate(-45deg) translateY(0) translateX(0); }
+            25% { transform: rotate(-45deg) translateY(-20px) translateX(10px); }
+            50% { transform: rotate(-45deg) translateY(-10px) translateX(-5px); }
+            75% { transform: rotate(-45deg) translateY(-25px) translateX(8px); }
+        }
+
+        /* 惊喜动画页面 */
+        .surprise-screen {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            z-index: 100;
+            overflow: hidden;
+        }
+
+        /* 响应式调整 */
+        @media (max-width: 480px) {
+            .title { font-size: 36px; }
+            .content { font-size: 18px; }
+            .result-content h2 { font-size: 32px; }
+            .result-content p { font-size: 20px; }
+        }
+    </style>
+</head>
+<body>
+    <!-- 星星背景 -->
+    <div class="stars-bg" id="starsBg"></div>
+    
+    <!-- 心形装饰 -->
+    <div class="heart-decoration" style="top: 10%; left: 10%; animation-delay: 0s;"></div>
+    <div class="heart-decoration" style="top: 20%; right: 15%; animation-delay: 2s;"></div>
+    <div class="heart-decoration" style="top: 60%; left: 20%; animation-delay: 4s;"></div>
+    <div class="heart-decoration" style="bottom: 25%; right: 10%; animation-delay: 6s;"></div>
+
+    <!-- 页面容器 -->
+    <div class="screen-container" id="screenContainer">
+        <!-- 第一屏 -->
+        <div class="screen" id="screen1">
+            <h1 class="title">刘雅楠</h1>
+            <div class="content">
+                <p>这封信是写给你的。</p>
+                <p style="color: rgba(255, 107, 157, 0.8);">往下翻。</p>
+            </div>
+            <div class="scroll-hint">滑动查看下一页</div>
+        </div>
+
+        <!-- 第二屏 -->
+        <div class="screen" id="screen2">
+            <div class="content">
+                <p>我这个人，你知道的。</p>
+                <p>不太会说话。</p>
+                <p>有时候想太多。</p>
+                <p>还老说错话。</p>
+            </div>
+            <div class="scroll-hint">继续往下</div>
+        </div>
+
+        <!-- 第三屏 -->
+        <div class="screen" id="screen3">
+            <div class="content">
+                <p>但跟你在一起的时候，</p>
+                <p style="color: #ff6b9d; font-size: 24px;">我很放松。</p>
+                <p>不用想太多。</p>
+                <p>也不用装。</p>
+            </div>
+            <div class="scroll-hint">继续往下</div>
+        </div>
+
+        <!-- 第四屏 -->
+        <div class="screen" id="screen4">
+            <div class="content">
+                <p>你说的话，我都记得。</p>
+                <p>你笑的时候，我也挺开心。</p>
+                <p>你不说话的时候，我也觉得挺好。</p>
+            </div>
+            <div class="scroll-hint">继续往下</div>
+        </div>
+
+        <!-- 第五屏 -->
+        <div class="screen" id="screen5">
+            <div class="content">
+                <p>我认真想过了。</p>
+                <p>我对你的感觉，</p>
+                <p style="color: #ff6b9d; font-size: 24px; font-weight: bold;">不止是朋友。</p>
+            </div>
+            <div class="scroll-hint">继续往下</div>
+        </div>
+
+        <!-- 第六屏 -->
+        <div class="screen" id="screen6">
+            <div class="content">
+                <p>所以我想问问你：</p>
+                <p style="color: #ff6b9d; font-size: 28px; font-weight: bold; margin-top: 20px;">做我女朋友吧？</p>
+            </div>
+            <div class="scroll-hint">最后一页了</div>
+        </div>
+
+        <!-- 第七屏 - 选择按钮 -->
+        <div class="screen" id="screen7">
+            <div class="button-area">
+                <button class="btn btn-yes" id="btnYes">好</button>
+                <button class="btn btn-no" id="btnNo">我再想想</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 结果页面 -->
+    <div class="result-screen" id="resultYes" style="display: none;">
+        <div class="result-content">
+            <h2>嘿嘿。</h2>
+            <p>以后我罩你。</p>
+        </div>
+        <button class="btn btn-yes" style="margin-top: 40px;" id="btnSurprise">查看惊喜</button>
+    </div>
+
+    <div class="result-screen" id="resultNo" style="display: none;">
+        <div class="result-content">
+            <h2>好。</h2>
+            <p>不急。</p>
+            <p>我等你。</p>
+        </div>
+        <button class="btn btn-no" style="margin-top: 40px;" id="btnBack">返回</button>
+    </div>
+
+    <!-- 惊喜动画页面 -->
+    <div class="surprise-screen" id="surpriseScreen">
+        <div class="stars"></div>
+        <div class="shooting-stars"></div>
+        <div class="hearts-container"></div>
+        <div class="heart-particles"></div>
+        <div class="float-hearts"></div>
+        <div class="decor-hearts"></div>
+        <div class="bg-glow"></div>
+        <div class="rose-container" id="roseContainer">
+            <div class="rose">
+                <div class="center"></div>
+                <div class="petal petal-1"></div>
+                <div class="petal petal-2"></div>
+                <div class="petal petal-3"></div>
+                <div class="petal petal-4"></div>
+                <div class="petal petal-5"></div>
+                <div class="petal petal-6"></div>
+                <div class="petal petal-7"></div>
+                <div class="petal petal-8"></div>
+                <div class="petal petal-9"></div>
+                <div class="stem"></div>
+                <div class="leaf leaf-1"></div>
+                <div class="leaf leaf-2"></div>
+            </div>
+        </div>
+        <div class="message" id="message">
+            我喜欢你
+            <span>刘雅楠</span>
+        </div>
+    </div>
+
+    <style>
+        /* 惊喜动画样式 */
+        .bg-glow {
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(255, 107, 157, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: glowPulse 4s ease-in-out infinite;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        @keyframes glowPulse {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.5; }
+            50% { transform: translate(-50%, -50%) scale(1.2); opacity: 0.8; }
+        }
+
+        .stars .star {
+            position: absolute;
+            background: #fff;
+            border-radius: 50%;
+            animation: twinkleS 2s ease-in-out infinite;
+        }
+
+        .stars .star.small { width: 2px; height: 2px; }
+        .stars .star.medium { width: 3px; height: 3px; }
+        .stars .star.large { width: 5px; height: 5px; }
+
+        @keyframes twinkleS {
+            0%, 100% { opacity: 0.2; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.3); }
+        }
+
+        .shooting-star {
+            position: absolute;
+            width: 100px;
+            height: 2px;
+            background: linear-gradient(90deg, rgba(255,255,255,0.8), transparent);
+            opacity: 0;
+            animation: shooting 3s ease-out infinite;
+        }
+
+        @keyframes shooting {
+            0% { opacity: 0; transform: translateX(-100px) rotate(-15deg); }
+            10% { opacity: 1; }
+            30% { opacity: 0; }
+            100% { opacity: 0; transform: translateX(300px) translateY(100px) rotate(-15deg); }
+        }
+
+        .heart {
+            position: absolute;
+            background: linear-gradient(135deg, #ff6b9d, #ff1493);
+            transform: rotate(-45deg);
+            animation: heartFloat 4s ease-in-out infinite;
+            opacity: 0;
+            box-shadow: 0 0 30px rgba(255, 107, 157, 0.8);
+        }
+
+        .heart::before, .heart::after {
+            content: '';
+            position: absolute;
+            background: inherit;
+            border-radius: 50%;
+        }
+
+        .heart.pulse { animation: heartFloat 4s ease-in-out infinite, heartPulse 1.5s ease-in-out infinite; }
+
+        @keyframes heartPulse {
+            0%, 100% { transform: rotate(-45deg) scale(1); }
+            50% { transform: rotate(-45deg) scale(1.15); }
+        }
+
+        @keyframes heartFloat {
+            0%, 100% { transform: rotate(-45deg) translateY(0); }
+            25% { transform: rotate(-45deg) translateY(-30px); }
+            50% { transform: rotate(-45deg) translateY(-20px); }
+            75% { transform: rotate(-45deg) translateY(-35px); }
+        }
+
+        .heart-particle {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: rgba(255, 107, 157, 0.6);
+            border-radius: 50%;
+            opacity: 0;
+            animation: particleFloat 3s ease-out infinite;
+        }
+
+        @keyframes particleFloat {
+            0% { opacity: 0; transform: translateY(0) scale(0); }
+            20% { opacity: 1; transform: translateY(-20px) scale(1); }
+            100% { opacity: 0; transform: translateY(-100px) scale(0.5); }
+        }
+
+        .rose-container {
+            position: absolute;
+            opacity: 0;
+            transform: scale(0.5);
+            transition: all 2s cubic-bezier(0.34, 1.56, 0.64, 1);
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%) scale(0.5);
+        }
+
+        .rose-container.show {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .rose {
+            width: 140px;
+            height: 220px;
+            position: relative;
+            animation: roseRotate 8s ease-in-out infinite;
+        }
+
+        @keyframes roseRotate {
+            0%, 100% { transform: rotateY(0deg); }
+            50% { transform: rotateY(10deg); }
+        }
+
+        .petal {
+            position: absolute;
+            background: linear-gradient(135deg, #ff4757 0%, #c0392b 50%, #a93226 100%);
+            border-radius: 50% 50% 50% 0;
+            transform-origin: bottom center;
+            box-shadow: inset 0 -5px 10px rgba(0,0,0,0.3);
+        }
+
+        .petal-1 { width: 60px; height: 80px; top: 25px; left: 40px; transform: rotate(0deg); }
+        .petal-2 { width: 55px; height: 75px; top: 30px; left: 28px; transform: rotate(-25deg); }
+        .petal-3 { width: 55px; height: 75px; top: 30px; left: 57px; transform: rotate(25deg); }
+        .petal-4 { width: 50px; height: 70px; top: 45px; left: 20px; transform: rotate(-45deg); }
+        .petal-5 { width: 50px; height: 70px; top: 45px; left: 70px; transform: rotate(45deg); }
+        .petal-6 { width: 45px; height: 65px; top: 60px; left: 12px; transform: rotate(-65deg); }
+        .petal-7 { width: 45px; height: 65px; top: 60px; left: 83px; transform: rotate(65deg); }
+        .petal-8 { width: 40px; height: 60px; top: 75px; left: 8px; transform: rotate(-80deg); }
+        .petal-9 { width: 40px; height: 60px; top: 75px; left: 92px; transform: rotate(80deg); }
+
+        .center {
+            position: absolute;
+            width: 35px;
+            height: 35px;
+            background: linear-gradient(135deg, #ff6b6b, #ff4757, #c0392b);
+            border-radius: 50%;
+            top: 40px;
+            left: 52px;
+            z-index: 10;
+            box-shadow: 0 0 20px rgba(255, 71, 87, 0.6);
+        }
+
+        .stem {
+            width: 10px;
+            height: 90px;
+            background: linear-gradient(90deg, #1e4d2b, #2d5a27, #3a7d32, #2d5a27);
+            position: absolute;
+            bottom: 0;
+            left: 65px;
+            border-radius: 5px;
+        }
+
+        .leaf {
+            position: absolute;
+            width: 35px;
+            height: 18px;
+            background: linear-gradient(135deg, #2d5a27, #1e4d2b);
+            border-radius: 50% 0 50% 50%;
+            box-shadow: inset 2px 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .leaf-1 { bottom: 35px; left: 45px; transform: rotate(-40deg); }
+        .leaf-2 { bottom: 55px; left: 80px; transform: rotate(40deg); }
+
+        .petal.falling { animation: petalFall 4s ease-out forwards; }
+        .stem.falling, .leaf.falling { animation: stemFall 3s ease-in forwards; }
+
+        @keyframes petalFall {
+            0% { opacity: 1; transform: translateY(0) rotate(0deg) scale(1); }
+            25% { opacity: 1; transform: translateY(50px) rotate(90deg) scale(0.9); }
+            50% { opacity: 0.8; transform: translateY(120px) rotate(180deg) scale(0.8); }
+            75% { opacity: 0.4; transform: translateY(200px) rotate(270deg) scale(0.6); }
+            100% { opacity: 0; transform: translateY(350px) rotate(360deg) scale(0.3); }
+        }
+
+        @keyframes stemFall {
+            0% { opacity: 1; transform: rotate(0deg); }
+            100% { opacity: 0; transform: rotate(45deg) translateY(50px); }
+        }
+
+        .heart-fragment {
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            background: linear-gradient(135deg, #ff6b9d, #ff1493);
+            transform: rotate(-45deg);
+            opacity: 0;
+            animation: fragmentFloat 3s ease-out forwards;
+        }
+
+        .heart-fragment::before, .heart-fragment::after {
+            content: '';
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            background: inherit;
+            border-radius: 50%;
+        }
+
+        .heart-fragment::before { top: -7px; left: 0; }
+        .heart-fragment::after { top: 0; left: 7px; }
+
+        @keyframes fragmentFloat {
+            0% { opacity: 0; transform: rotate(-45deg) translateY(0) scale(0); }
+            20% { opacity: 1; transform: rotate(-45deg) translateY(-20px) scale(1); }
+            100% { opacity: 0; transform: rotate(-45deg) translateY(-150px) scale(0.3); }
+        }
+
+        .message {
+            position: absolute;
+            font-size: 36px;
+            color: #ff6b9d;
+            font-weight: bold;
+            text-align: center;
+            opacity: 0;
+            text-shadow: 0 0 20px rgba(255, 107, 157, 0.8), 0 0 40px rgba(255, 107, 157, 0.6), 0 0 60px rgba(255, 20, 147, 0.4);
+            animation: messageAppear 3s ease-out forwards;
+            font-family: 'Microsoft YaHei', 'PingFang SC', sans-serif;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .message span {
+            display: block;
+            font-size: 24px;
+            margin-top: 20px;
+            color: #ffc0cb;
+            text-shadow: 0 0 15px rgba(255, 192, 203, 0.8), 0 0 30px rgba(255, 192, 203, 0.5);
+        }
+
+        @keyframes messageAppear {
+            0% { opacity: 0; transform: translate(-50%, -50%) scale(0.3); filter: blur(10px); }
+            30% { opacity: 0.8; transform: translate(-50%, -50%) scale(1.1); filter: blur(2px); }
+            50% { opacity: 1; transform: translate(-50%, -50%) scale(1.05); filter: blur(0); }
+            100% { opacity: 1; transform: translate(-50%, -50%) scale(1); filter: blur(0); }
+        }
+
+        .float-heart {
+            position: absolute;
+            opacity: 0.15;
+            animation: floatHeartBg 10s ease-in-out infinite;
+        }
+
+        @keyframes floatHeartBg {
+            0%, 100% { transform: translateY(0) translateX(0); }
+            25% { transform: translateY(-40px) translateX(20px); }
+            50% { transform: translateY(-20px) translateX(-10px); }
+            75% { transform: translateY(-50px) translateX(15px); }
+        }
+
+        .decor-heart {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: linear-gradient(135deg, rgba(255, 107, 157, 0.6), rgba(255, 20, 147, 0.4));
+            transform: rotate(-45deg);
+            opacity: 0;
+            animation: decorFloat 8s linear infinite;
+        }
+
+        .decor-heart::before, .decor-heart::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: inherit;
+            border-radius: 50%;
+        }
+
+        .decor-heart::before { top: -10px; left: 0; }
+        .decor-heart::after { top: 0; left: 10px; }
+
+        @keyframes decorFloat {
+            0% { opacity: 0; transform: rotate(-45deg) translateX(0) translateY(0); }
+            10% { opacity: 0.6; }
+            50% { opacity: 0.8; }
+            90% { opacity: 0.6; }
+            100% { opacity: 0; transform: rotate(-45deg) translateX(300px) translateY(-200px); }
+        }
+    </style>
+
+    <script>
+        // 创建星星背景
+        function createStarsBg() {
+            const container = document.getElementById('starsBg');
+            const sizes = ['small', 'medium', 'large'];
+            for (let i = 0; i < 60; i++) {
+                const star = document.createElement('div');
+                star.className = `star-bg ${sizes[Math.floor(Math.random() * sizes.length)]}`;
+                star.style.left = Math.random() * 100 + 'vw';
+                star.style.top = Math.random() * 100 + 'vh';
+                star.style.animationDelay = Math.random() * 3 + 's';
+                container.appendChild(star);
+            }
+        }
+
+        // 滑动翻页
+        let currentScreen = 1;
+        const totalScreens = 7;
+        let touchStartY = 0;
+        let touchEndY = 0;
+
+        function handleTouchStart(e) {
+            touchStartY = e.touches[0].clientY;
+        }
+
+        function handleTouchEnd(e) {
+            touchEndY = e.changedTouches[0].clientY;
+            handleSwipe();
+        }
+
+        function handleMouseWheel(e) {
+            if (e.deltaY > 0 && currentScreen < totalScreens) {
+                goToScreen(currentScreen + 1);
+            } else if (e.deltaY < 0 && currentScreen > 1) {
+                goToScreen(currentScreen - 1);
+            }
+        }
+
+        function handleSwipe() {
+            const diff = touchStartY - touchEndY;
+            if (Math.abs(diff) > 50) {
+                if (diff > 0 && currentScreen < totalScreens) {
+                    goToScreen(currentScreen + 1);
+                } else if (diff < 0 && currentScreen > 1) {
+                    goToScreen(currentScreen - 1);
+                }
+            }
+        }
+
+        function goToScreen(screenNum) {
+            currentScreen = screenNum;
+            const screenContainer = document.getElementById('screenContainer');
+            screenContainer.style.transform = `translateY(-${(screenNum - 1) * 100}vh)`;
+        }
+
+        // 按钮点击事件
+        document.getElementById('btnYes').addEventListener('click', function() {
+            document.getElementById('screenContainer').style.display = 'none';
+            document.getElementById('resultYes').style.display = 'flex';
+        });
+
+        document.getElementById('btnNo').addEventListener('click', function() {
+            document.getElementById('screenContainer').style.display = 'none';
+            document.getElementById('resultNo').style.display = 'flex';
+        });
+
+        document.getElementById('btnBack').addEventListener('click', function() {
+            document.getElementById('resultNo').style.display = 'none';
+            document.getElementById('screenContainer').style.display = 'block';
+            goToScreen(7);
+        });
+
+        // 惊喜动画
+        document.getElementById('btnSurprise').addEventListener('click', function() {
+            document.getElementById('resultYes').style.display = 'none';
+            const surpriseScreen = document.getElementById('surpriseScreen');
+            surpriseScreen.style.display = 'block';
+            startSurpriseAnimation();
+        });
+
+        function startSurpriseAnimation() {
+            // 创建星星
+            const starsContainer = document.querySelector('.surprise-screen .stars');
+            const sizes = ['small', 'medium', 'large'];
+            for (let i = 0; i < 80; i++) {
+                const star = document.createElement('div');
+                star.className = `star ${sizes[Math.floor(Math.random() * sizes.length)]}`;
+                star.style.left = Math.random() * 100 + 'vw';
+                star.style.top = Math.random() * 100 + 'vh';
+                star.style.animationDelay = Math.random() * 3 + 's';
+                starsContainer.appendChild(star);
+            }
+
+            // 创建流星
+            const shootingContainer = document.querySelector('.surprise-screen .shooting-stars');
+            for (let i = 0; i < 3; i++) {
+                const star = document.createElement('div');
+                star.className = 'shooting-star';
+                star.style.top = Math.random() * 40 + 'vh';
+                star.style.left = Math.random() * 30 + 'vw';
+                star.style.animationDelay = (3 + i * 4) + 's';
+                shootingContainer.appendChild(star);
+            }
+
+            // 创建爱心粒子
+            const particleContainer = document.querySelector('.surprise-screen .heart-particles');
+            for (let i = 0; i < 30; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'heart-particle';
+                particle.style.left = Math.random() * 100 + 'vw';
+                particle.style.top = '100vh';
+                particle.style.animationDelay = Math.random() * 5 + 's';
+                particleContainer.appendChild(particle);
+            }
+
+            // 创建浮动爱心
+            const floatContainer = document.querySelector('.surprise-screen .float-hearts');
+            for (let i = 0; i < 12; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'float-heart heart';
+                const size = 30 + Math.random() * 40;
+                heart.style.width = size + 'px';
+                heart.style.height = size + 'px';
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.top = Math.random() * 100 + 'vh';
+                heart.style.animationDelay = Math.random() * 10 + 's';
+                floatContainer.appendChild(heart);
+                createHeartElements(heart, size);
+            }
+
+            // 创建装饰爱心
+            const decorContainer = document.querySelector('.surprise-screen .decor-hearts');
+            for (let i = 0; i < 5; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'decor-heart';
+                heart.style.left = '-50px';
+                heart.style.top = (20 + i * 15) + 'vh';
+                heart.style.animationDelay = (i * 2) + 's';
+                decorContainer.appendChild(heart);
+            }
+
+            // 创建主要爱心
+            setTimeout(() => {
+                const container = document.querySelector('.surprise-screen .hearts-container');
+                const colors = ['#ff6b9d', '#ff1493', '#ff4757', '#ffc0cb', '#ff8fab'];
+                for (let i = 0; i < 25; i++) {
+                    const heart = document.createElement('div');
+                    heart.className = 'heart pulse';
+                    const size = 15 + Math.random() * 35;
+                    heart.style.width = size + 'px';
+                    heart.style.height = size + 'px';
+                    heart.style.left = Math.random() * 100 + 'vw';
+                    heart.style.top = Math.random() * 100 + 'vh';
+                    heart.style.animationDelay = Math.random() * 4 + 's';
+                    heart.style.background = `linear-gradient(135deg, ${colors[Math.floor(Math.random() * colors.length)]}, #ff1493)`;
+                    container.appendChild(heart);
+                    createHeartElements(heart, size);
+
+                    setTimeout(() => { heart.style.opacity = 1; }, i * 150);
+                }
+            }, 500);
+
+            // 爱心汇聚成玫瑰
+            setTimeout(() => {
+                const hearts = document.querySelectorAll('.surprise-screen .heart:not(.float-heart):not(.decor-heart)');
+                const roseContainer = document.getElementById('roseContainer');
+
+                hearts.forEach((heart, index) => {
+                    setTimeout(() => {
+                        heart.style.transition = 'all 3s cubic-bezier(0.34, 1.56, 0.64, 1)';
+                        heart.style.left = '50%';
+                        heart.style.top = '50%';
+                        heart.style.opacity = 0;
+                        heart.style.transform = 'rotate(-45deg) scale(0)';
+                    }, index * 100);
+                });
+
+                setTimeout(() => { roseContainer.classList.add('show'); }, 3500);
+            }, 6000);
+
+            // 玫瑰破碎
+            setTimeout(() => {
+                const petals = document.querySelectorAll('.surprise-screen .petal');
+                petals.forEach((petal, index) => {
+                    setTimeout(() => {
+                        petal.classList.add('falling');
+                        petal.style.left = (Math.random() * 150 - 75) + 'px';
+                        petal.style.top = (Math.random() * 100 + 50) + 'px';
+                    }, index * 150);
+                });
+
+                setTimeout(() => {
+                    document.querySelector('.surprise-screen .stem').classList.add('falling');
+                    document.querySelectorAll('.surprise-screen .leaf').forEach(leaf => { leaf.classList.add('falling'); });
+                }, 800);
+
+                // 创建爱心碎片
+                setTimeout(() => {
+                    const container = document.querySelector('.surprise-screen .hearts-container');
+                    for (let i = 0; i < 15; i++) {
+                        const fragment = document.createElement('div');
+                        fragment.className = 'heart-fragment';
+                        fragment.style.left = '50%';
+                        fragment.style.top = '50%';
+                        fragment.style.animationDelay = i * 0.1 + 's';
+                        container.appendChild(fragment);
+
+                        setTimeout(() => {
+                            fragment.style.opacity = 1;
+                            fragment.style.left = (50 + (Math.random() - 0.5) * 100) + 'vw';
+                            fragment.style.top = (50 + (Math.random() - 0.5) * 50) + 'vh';
+                        }, i * 50);
+                    }
+                }, 500);
+            }, 14000);
+
+            // 显示表白文字
+            setTimeout(() => { document.getElementById('message').style.opacity = 1; }, 20000);
+        }
+
+        function createHeartElements(heart, size) {
+            const before = document.createElement('div');
+            before.style.position = 'absolute';
+            before.style.width = size + 'px';
+            before.style.height = size + 'px';
+            before.style.background = 'inherit';
+            before.style.borderRadius = '50%';
+            before.style.top = -(size / 2) + 'px';
+            before.style.left = '0';
+            heart.appendChild(before);
+
+            const after = document.createElement('div');
+            after.style.position = 'absolute';
+            after.style.width = size + 'px';
+            after.style.height = size + 'px';
+            after.style.background = 'inherit';
+            after.style.borderRadius = '50%';
+            after.style.top = '0';
+            after.style.left = (size / 2) + 'px';
+            heart.appendChild(after);
+        }
+
+        // 初始化
+        function init() {
+            createStarsBg();
+            
+            // 添加滑动事件
+            document.addEventListener('touchstart', handleTouchStart, false);
+            document.addEventListener('touchend', handleTouchEnd, false);
+            document.addEventListener('wheel', handleMouseWheel, { passive: true });
+
+            // 设置容器样式
+            document.getElementById('screenContainer').style.transition = 'transform 0.5s ease-out';
+            document.getElementById('screenContainer').style.height = '700vh';
+            document.getElementById('screenContainer').style.position = 'relative';
+        }
+
+        window.addEventListener('load', init);
+    </script>
+</body>
+</html>
